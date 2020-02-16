@@ -1,3 +1,0 @@
-/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/js/test/CMakeFiles/rebuild_cache.dir
-/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/js/test/CMakeFiles/json.dir
-/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/js/test/CMakeFiles/edit_cache.dir

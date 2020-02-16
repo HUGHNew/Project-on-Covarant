@@ -1,1 +1,0 @@
-/usr/bin/c++    -rdynamic CMakeFiles/json.dir/main.cpp.o  -o json /home/jsoncpp/build/src/libjsoncpp.a -ljsoncpp 
