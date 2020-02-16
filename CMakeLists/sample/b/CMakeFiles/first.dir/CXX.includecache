@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/main.cpp
+subdir/hello.hpp
+/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/subdir/hello.hpp
+
+/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/subdir/hello.hpp
+

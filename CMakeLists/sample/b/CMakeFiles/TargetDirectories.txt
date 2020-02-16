@@ -1,0 +1,4 @@
+/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/b/CMakeFiles/rebuild_cache.dir
+/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/b/CMakeFiles/hello.dir
+/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/b/CMakeFiles/edit_cache.dir
+/home/hugh/desktop/Programing Items/Compile/Project-on-Covarant/CMakeLists/sample/b/CMakeFiles/first.dir

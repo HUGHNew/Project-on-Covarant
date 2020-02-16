@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+include_directories(/usr/local/include/)
+link_libraries("/home/jsoncpp/build/src/libjsoncpp.a")
+add_executable(json main.cpp)
+target_link_libraries(json jsoncpp)
