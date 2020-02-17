@@ -1,4 +1,5 @@
-[example](#example)  
+[example](#example)  [var](#defaultVaribles(partial)) [func](#macro&func)  
+命令不区分大小写  
 *command*(arg1 arg2 ...) #运行命令  
 *set*(var_name var_value) #定义变量,或者给已经存在的变量赋值  
 *command*(arg1 ${var_name}) #使用变量  
@@ -14,14 +15,14 @@ set(CMAKE_BUILD_TYPE "xxx") #设定编译模式 如Debug/Release
 ```cmake
 find_package(lib_name VERSION REQUIRED) #引入外部依赖
 add_library(<name> [lib_type] source_list) #生成库
-include_directories(${__lib_name_INCLUDE_DIRS__}) #指定include路径,放在add_executable前面
+include_directories(${__lib_name_INCLUDE_DIRS__}) #指定include路径,放在add_executable前面,相当于指定g++的 -L 参数
 add_executable(cur_project_name x.cpp) #指定生成文件名
-target_link_libraries(${__lib_name_LIBRARIES__}) #指定libraries路径,放在add_executable后面
+target_link_libraries(${__lib_name_LIBRARIES__}) #指定libraries路径,放在add_executable后面 -l参数
 ```
 #------------------其他辅助部分----------------#
 ```cmake
 function(__func_name__ arg) #定义一个函数
-add_subdirectory(dir) #添加一个子目录
+add_subdirectory(dir) #添加一个子目录,添加到生成文件中
 AUX_SOURCE_DIRECTORY(. SRC_LIST) #查看当前目录,并保存到SRC_LIST
 FOREACH(one_dir ${SRC_LIST})
     MESSAGE(${one_dir})
@@ -30,7 +31,7 @@ ENDFOREACH(one_dir)
 #------------------判断----------------#  
 ```cmake
 if(expresion)
-else if(expresion)
+elseif(expresion)
 else(expresion)
 endif(expresion)
 ```
@@ -82,9 +83,65 @@ set_target_properties(example
 ENABLE_TESTING() #控制Makefile是否构建test目标
 ADD_TEST(testname EXENAMEarg_list)
 ```
+导入库文件三种方式  
+1. 绝对路径
+2. install
+   1. set() install()
+3. find_package
+   1. find_path()
+   2. find_library()
+   3. 模块模式
+   4. 配置模式
+
+## macro&func
+```cmake
+# define a macro hello  
+macro(hello MESSAGE)
+    message(${MESSAGE})
+endmacro(hello) 
+# call the macro with the string "hello world"  
+hello("hello world")      
+
+# define a function hello  
+function(hello MESSAGE)
+    message(${MESSAGE})  
+endfunction(hello)
+```
 
 # example  
-结构树:  
+只有一个main.cpp,生成可执行文件 main
+```cmake
+#the easiest
+cmake_minimum_required(VERSION 2.8)
+add_executable(main main.cpp)
+```
+目录结构:  
++ .  
++ ├── CMakeLists.txt  
++ ├── main.cpp  
++ └── subdir  
+    + ├── hello.cpp
+    + └── hello.hpp
+```cmake
+cmake_minimum_required(VERSION 2.8)
+set(sub ./subdir)
+set(CMAKE_CXX_FLAGS "-std=c++11")
+add_library(hello STATIC ${sub}/hello.cpp ${sub}/hello.hpp )
+add_executable(first main.cpp) #${sub}/hello.cpp ${sub}/hello.hpp)
+target_link_libraries(first hello)
+```
+
+目录结构
++ .
++ ├── CMakeLists.txt
++ ├── a.json
++ ├── main.cpp
+```cmake
+
+```
+
+
+目录结构:  
 ***build***  
 CMakeLists.txt  
 ***include***  
@@ -105,5 +162,15 @@ project(test1)
 add_compile_option(-std=c++11)
 include_directories(include)
 add_library(lib STATIC list_cpp list_hpp)
-add_executable(main xx.cpp
+add_executable(main xx.cpp)
 ```
+
+
+## defaultVaribles(partial)
++ CMAKE_C_COMPILER：指定C编译器
++ CMAKE_CXX_COMPILER：
++ CMAKE_C_FLAGS：编译C文件时的选项，如-g；也可以通过add_definitions添加编译选项
++ EXECUTABLE_OUTPUT_PATH：可执行文件的存放路径
++ LIBRARY_OUTPUT_PATH：库文件路径
++ CMAKE_BUILD_TYPE:：build 类型(Debug, Release, ...)，CMAKE_BUILD_TYPE=Debug
++ BUILD_SHARED_LIBS：Switch between shared and static libraries
