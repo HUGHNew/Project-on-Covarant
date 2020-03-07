@@ -1,3 +1,4 @@
+[有意思的教程] [官方文档]
 [example](#example)  [var](#defaultVaribles(partial)) [func](#macro&func)  
 命令不区分大小写  
 *command*(arg1 arg2 ...) #运行命令  
@@ -74,15 +75,31 @@ install(
     RUNTIME
     LIBRARY
     ARCHIVE
-)
+    DESTINATION
+    FILE
+)#以上内容都为系统参数
+#install(TARGETS tar DESTINATION bin)#Linux下 路径为 /usr/local/bin
+#默认路径可以通过 CMAKE_INSTALL_PREFIX 变量来指定
+#
+#
+#
 TARGET_INCLUDE_DIRECTORIES(<target>[SYSTEM][BEFORE]<INTERFACE|PUBLIC|PRIVATE>[items])
 set_target_properties(example
     ARCHIVE_OUTPUT_DIRECTORY xx
     LIBRARY_OUTPUT_DIRECTORY xx
 ) #设置目标属性来改变构建方式
-ENABLE_TESTING() #控制Makefile是否构建test目标
-ADD_TEST(testname EXENAMEarg_list)
 ```
+
+```cmake
+#test part
+ENABLE_TESTING() #控制Makefile是否构建test目标
+ADD_TEST(test_name executable arg_list)
+set_tests_properties (test_usage
+  PROPERTIES PASS_REGULAR_EXPRESSION str)#PASS_REGULAR_EXPRESSION:将输出与之后的字符串比较
+#一个特殊的 test 的样例名
+#test_run `add_test(test_run Demo params)` 测试程序是否成功运行并返回0值
+```
+
 导入库文件三种方式  
 1. 绝对路径
 2. install
@@ -95,7 +112,7 @@ ADD_TEST(testname EXENAMEarg_list)
 
 ## macro&func
 ```cmake
-# define a macro hello  
+# define a macro hello  #宏不会改变变量的值
 macro(hello MESSAGE)
     message(${MESSAGE})
 endmacro(hello) 
@@ -174,3 +191,6 @@ add_executable(main xx.cpp)
 + LIBRARY_OUTPUT_PATH：库文件路径
 + CMAKE_BUILD_TYPE:：build 类型(Debug, Release, ...)，CMAKE_BUILD_TYPE=Debug
 + BUILD_SHARED_LIBS：Switch between shared and static libraries
+
+[有意思的教程]:https://www.hahack.com/codes/cmake/
+[官方文档]:https://cmake.org/cmake/help/v3.0/index.html
