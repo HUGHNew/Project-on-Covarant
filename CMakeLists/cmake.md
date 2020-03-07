@@ -10,6 +10,8 @@ ${name} #使用变量
 cmake_minimum_required(VERSION num) #CMake最低版本号
 project(cur_project_name) #项目信息
 set(CMAKE_CXX_FLAGS "xxx") #C++ 编译器信息 如 -std=c++11
+set(CMAKE_CXX_STANDARD "xxx") #C++语言标准,如 11 14 17 20 
+add_compile_options(-std=c++11)#添加编译选项
 set(CMAKE_BUILD_TYPE "xxx") #设定编译模式 如Debug/Release
 ```
 #------------------依赖执行部分----------------# 
@@ -23,8 +25,10 @@ target_link_libraries(${__lib_name_LIBRARIES__}) #指定libraries路径,放在ad
 #------------------其他辅助部分----------------#
 ```cmake
 function(__func_name__ arg) #定义一个函数
-add_subdirectory(dir) #添加一个子目录,添加到生成文件中
+add_subdirectory(dir) #添加一个子目录,添加到生成文件中,子目录需要CMakeLists.txt
 AUX_SOURCE_DIRECTORY(. SRC_LIST) #查看当前目录,并保存到SRC_LIST
+set(EXECUTABLE_OUTPUT_PATH path)#设置生成可执行文件的路径
+set(LIBRARY_OUTPUT_PATH path)#设置生成库文件的路径
 FOREACH(one_dir ${SRC_LIST})
     MESSAGE(${one_dir})
 ENDFOREACH(one_dir)
